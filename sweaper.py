@@ -1,3 +1,4 @@
+from random import randint, choice
 
 EMPTY = 0
 MINE = 1
@@ -11,3 +12,8 @@ states = {
     'flag': 3
 }
 # will i need flag?
+
+# lets make zeros more than ones
+mine_grid = [[choice(3 * [0] + [1]) for i in range(9)] for j in range(9)]
+player_grid = [[-1 for i in range(9)] for j in range(9)]
+print(mine_grid)
