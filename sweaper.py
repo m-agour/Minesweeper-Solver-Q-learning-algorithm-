@@ -1,16 +1,14 @@
-from random import randint, choice
-
+from random import randint, choice, seed
+seed(8)
 
 states = {
     'empty': 0,
     'mine': 1,
-    'unknown': 2,
-    'flag': 3
+    'unknown': -1,
 }
-# will i need flag?
 
+# todo: levels easy, med, hard
 
-# lets make zeros more than ones
 
 class Sweeper:
     def __init__(self, w, h):
@@ -21,36 +19,39 @@ class Sweeper:
 
     def count_neighbours(self, x, y):
         c = 0
-        for i in range(x-1, y+2):
-            for j in range(x - 1, y + 2):
-                if (0 <= i <= 8) and (0 <= j <= 8):
+        for i in range(x - 1, x + 2):
+            for j in range(y - 1, y + 2):
+                if (0 <= i < self.w) and (0 <= j < self.h):
                     if self.mines_grid[i][j] == states['mine']:
                         c += 1
         return c
 
+    def reveal_neighbours(self, x, y):
+        for i in range(x - 1, x + 2):
+            for j in range(y - 1, y + 2):
+                if (0 <= i < self.w) and (0 <= j < self.h) and not (i == x and j == y):
+                    if (self.player_grid[i][j] == states['unknown']) and (
+                            self.mines_grid[i][j] == states['empty']):
+                        count = self.count_neighbours(i, j)
+                        self.player_grid[i][j] = count
+                        if count == 0:
+                            self.reveal_neighbours(i, j)
+
+                    else:
+                        continue
+
     def reveal(self, x, y):
         if self.mines_grid[x][y] == states['mine']:
-            print("BOOM!")
+            print("You Lose!")
         elif self.player_grid[x][y] == states['unknown']:
-            self.player_grid[x][y] = self.count_neighbours(x, y)
+            count = self.count_neighbours(x, y)
+            self.player_grid[x][y] = count
+            if count == 0:
+                self.reveal_neighbours(x, y)
 
-            # Can this be recursive?
-            cells = [(x, y)]
-            while len(cells) > 0:
-                cell = cells.pop()
-                x = cell[0]
-                y = cell[1]
-                for i in range(x - 1, x + 2):
-                    for j in range(y - 1, y + 2):
-                        if (0 <= i <= 8) and (0 <= j <= 8):
-                            if (self.player_grid[i][j] == states['unknown']) and (self.mines_grid[i][j] == states['empty']):
-                                self.player_grid[i][j] = self.count_neighbours(i, j)
-                                if self.count_neighbours(i, j) == states['empty'] and (i, j) not in cells:
-                                    cells.append((i, j))
-                                else:
-                                    self.player_grid[i][j] = self.count_neighbours(i, j)
 
-    def show_grid(self):
+
+    def display(self):
         symbols = {-2: "F", -1: "."}
         for i in range(len(self.player_grid)):
             for j in range(len(self.player_grid[i])):
@@ -62,3 +63,25 @@ class Sweeper:
                 print(f"{symbol} ", end='')
             print("")
 
+
+
+    def display_mines(self):
+        symbols = {-2: "F", -1: "."}
+        for i in range(len(self.mines_grid)):
+            for j in range(len(self.mines_grid[i])):
+                value = self.mines_grid[i][j]
+                if value in symbols:
+                    symbol = symbols[value]
+                else:
+                    symbol = str(value)
+                print(f"{symbol} ", end='')
+            print("")
+
+
+s = Sweeper(19, 19)
+# s.reveal(8, 8)
+s.reveal(10, 6)
+# s.reveal(0, 5)
+s.display()
+print('-----------------')
+s.display_mines()
