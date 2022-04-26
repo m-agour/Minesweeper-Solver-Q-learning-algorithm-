@@ -1,9 +1,5 @@
 from random import randint, choice
 
-EMPTY = 0
-MINE = 1
-UNKNOWN = -1
-FLAG = -2
 
 states = {
     'empty': 0,
@@ -28,14 +24,14 @@ class Sweeper:
         for i in range(x-1, y+2):
             for j in range(x - 1, y + 2):
                 if (0 <= i <= 8) and (0 <= j <= 8):
-                    if self.mines_grid[i][j] == MINE:
+                    if self.mines_grid[i][j] == states['mine']:
                         c += 1
         return c
 
     def reveal(self, x, y):
-        if self.mines_grid[x][y] == MINE:
+        if self.mines_grid[x][y] == states['mine']:
             print("BOOM!")
-        elif self.player_grid[x][y] == UNKNOWN:
+        elif self.player_grid[x][y] == states['unknown']:
             self.player_grid[x][y] = self.count_neighbours(x, y)
 
             # Can this be recursive?
@@ -47,9 +43,9 @@ class Sweeper:
                 for i in range(x - 1, x + 2):
                     for j in range(y - 1, y + 2):
                         if (0 <= i <= 8) and (0 <= j <= 8):
-                            if (self.player_grid[i][j] == UNKNOWN) and (self.mines_grid[i][j] == EMPTY):
+                            if (self.player_grid[i][j] == states['unknown']) and (self.mines_grid[i][j] == states['empty']):
                                 self.player_grid[i][j] = self.count_neighbours(i, j)
-                                if self.count_neighbours(i, j) == EMPTY and (i, j) not in cells:
+                                if self.count_neighbours(i, j) == states['empty'] and (i, j) not in cells:
                                     cells.append((i, j))
                                 else:
                                     self.player_grid[i][j] = self.count_neighbours(i, j)
