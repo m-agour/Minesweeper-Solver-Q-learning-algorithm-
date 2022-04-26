@@ -50,5 +50,15 @@ class Sweeper:
                                 else:
                                     self.player_grid[i][j] = self.count_neighbours(i, j)
 
-
+    def show_grid(self):
+        symbols = {-2: "F", -1: "."}
+        for i in range(len(self.player_grid)):
+            for j in range(len(self.player_grid[i])):
+                value = self.player_grid[i][j]
+                if value in symbols:
+                    symbol = symbols[value]
+                else:
+                    symbol = str(value)
+                print(f"{symbol} ", end='')
+            print("")
 
