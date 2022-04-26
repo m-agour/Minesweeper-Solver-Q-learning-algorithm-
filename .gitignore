@@ -1,0 +1,15 @@
+
+__pycache__/vector.cpython-38.pyc
+.idea/vcs.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/ai.iml
+__pycache__/hill.cpython-38.pyc
+ball.py
+gravity.py
+hill.py
+test.py
+Tron.py
+vector.py
