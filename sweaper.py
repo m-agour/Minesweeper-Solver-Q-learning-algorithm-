@@ -6,6 +6,8 @@ states = {
     'mine': 1,
     'unknown': -1,
 }
+symbols = {-2: "F", -1: "."}
+
 
 # todo: levels easy, med, hard
 
@@ -52,7 +54,6 @@ class Sweeper:
 
 
     def display(self):
-        symbols = {-2: "F", -1: "."}
         for i in range(len(self.player_grid)):
             for j in range(len(self.player_grid[i])):
                 value = self.player_grid[i][j]
@@ -66,7 +67,6 @@ class Sweeper:
 
 
     def display_mines(self):
-        symbols = {-2: "F", -1: "."}
         for i in range(len(self.mines_grid)):
             for j in range(len(self.mines_grid[i])):
                 value = self.mines_grid[i][j]
