@@ -3,11 +3,14 @@ import numpy as np
 import pygame
 
 pygame.init()
+pygame.font.init()
+font = pygame.font.SysFont('Arial', 40)
 
 # screen t draw my minesweeper (3X3) for now since we are using Q-learning
 SQUARE_WIDTH = 100
 SQUARE_HEIGHT = 100
 BOARDER = 50
+BOARDER_TITLE = 50
 
 rewards = {
     'lose': -1,
@@ -46,7 +49,7 @@ class Sweeper:
         self.h = h
         self.area = w * h
         self.size = self.w * self.h
-        self.screen = pygame.display.set_mode([SQUARE_WIDTH * w + BOARDER, SQUARE_HEIGHT * h + BOARDER])
+        self.screen = pygame.display.set_mode([SQUARE_WIDTH * w + BOARDER, SQUARE_HEIGHT * h + BOARDER + BOARDER_TITLE])
         self.mines_num = mines_num
         self.player_grid = self.init_player_grid()
         self.mines_grid = self.init_mines_grid()
@@ -140,22 +143,23 @@ class Sweeper:
             reward = rewards['useless']
         return self.get_encoded_state(), reward, done
 
-    def display(self, t, save_name=None):
+    def display(self, t, save_name=None, episode=None):
         if self.last_clicked:
             x, y = self.last_clicked
             self.screen.blit(pygame.transform.scale(shapes['click'], (70, 70)),
-                             (BOARDER/2 + x * 100 + 15, BOARDER/2 + y * 100 + 15))
+                             (BOARDER/2 + x * 100 + 15, BOARDER/2 + y * 100 + 15 + BOARDER_TITLE))
             pygame.display.flip()
             if save_name:
                 pygame.image.save(self.screen, 'footage/' + save_name + '0.jpg')
             sleep(0.3 * t)
 
         self.screen.fill((150, 150, 150))
+        self.screen.blit(font.render(f'Episode: {episode}', True, (19, 11, 16)), (BOARDER, BOARDER/3))
         for j in range(self.h):
             for i in range(self.w):
                 value = self.player_grid[j * self.w + i]
                 self.screen.blit(pygame.transform.scale(shapes[value], (100, 100)),
-                                 (BOARDER/2 + i * 100, BOARDER/2 + j * 100))
+                                 (BOARDER/2 + i * 100, BOARDER/2 + j * 100 + BOARDER_TITLE))
         pygame.display.flip()
         if save_name:
             pygame.image.save(self.screen, 'footage/' + save_name + '1.jpg')

@@ -92,7 +92,7 @@ class Q:
             done = False
             evaluate = False
             if episode % SHOW_EVERY == 0:
-                self.env.display(FRAME_TIME, f'ep{episode}_0')
+                self.env.display(FRAME_TIME, f'ep{episode}_0', episode)
                 evaluate = True
                 i = 0
 
@@ -109,7 +109,7 @@ class Q:
 
                 if episode % SHOW_EVERY == 0:
                     i += 1
-                    self.env.display(FRAME_TIME, f"ep{episode}_{str(i).zfill(5)}")
+                    self.env.display(FRAME_TIME, f"ep{episode}_{str(i).zfill(5)}", episode)
 
                 if not done:
                     max_future_q = np.max(self.Q_table[new_state])
