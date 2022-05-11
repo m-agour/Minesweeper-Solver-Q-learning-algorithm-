@@ -1,2 +1,2 @@
-![Episode no. 1000 evaluation](./footage/gifs/1000.gif)
 
+<img src="./footage/gifs/1000.gif" width="40" height="40" />
