@@ -1,2 +1,2 @@
 
-<img src="./footage/gifs/1000.gif" width="40" height="40" />
+<img src="./footage/gifs/1000.gif" width="200" height="200" />
