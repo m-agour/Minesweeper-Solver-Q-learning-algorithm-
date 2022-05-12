@@ -7,4 +7,4 @@
 <img src="./footage/gifs/4000.gif" width="200" height="300" />  <img src="./footage/gifs/5000.gif" width="200" height="300" />   <img src="./footage/gifs/39000.gif" width="200" height="300" />   <img src="./footage/gifs/48000.gif" width="200" height="300" />
 
 # Statistics
-<img src="./data/3x4_2_win_rate.png" width="200" height="300" />  <img src="./footage/gifs/5000.gif" width="640" height="480" />  
+<img src="./data/3x4_2_win_rate.png" width="640" height="480" />  
