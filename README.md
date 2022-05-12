@@ -5,6 +5,6 @@
   
 # Evaluating the Agent
 <img src="./footage/gifs/1000.gif" width="200" height="300" />
-<img src="./footage/gifs/15000.gif" width="200" height="300" />
+<img src="./footage/gifs/16000.gif" width="200" height="300" />
 <img src="./footage/gifs/39000.gif" width="200" height="300" />
-<img src="./footage/gifs/50000.gif" width="200" height="300" />
+<img src="./footage/gifs/49000.gif" width="200" height="300" />
