@@ -4,4 +4,9 @@
   For any larger board, DQN can be used to solve it but since I'm trying to apply Q-learning to my new minesweeper environment, 3x4 with 2 mine will do just fine!
   
 # Evaluating the Agent
-<img src="./footage/gifs/2000.gif" width="200" height="300" />  <img src="./footage/gifs/7000.gif" width="200" height="300" />   <img src="./footage/gifs/39000.gif" width="200" height="300" />   <img src="./footage/gifs/49000.gif" width="200" height="300" />
+<img src="./footage/gifs/4000.gif" width="200" height="300" />  <img src="./footage/gifs/5000.gif" width="200" height="300" />   <img src="./footage/gifs/39000.gif" width="200" height="300" />   <img src="./footage/gifs/48000.gif" width="200" height="300" />
+
+# Statistics
+<img src="./data/3x4_2_win_rate.png" width="640" height="480" />  
+#
+<img src="./data/3x4_2_reward.png" width="300" height="375" /><img src="./data/3x4_2_progress.png" width="300" height="375" /><img src="./data/3x4_2_epsilon.png" width="500" height="375" /><img src="./data/3x4_2_moves.png" width="500" height="375" />  
