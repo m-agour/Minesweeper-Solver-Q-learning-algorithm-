@@ -6,7 +6,14 @@
 # Evaluating the Agent
 <img src="./footage/gifs/4000.gif" width="200" height="300" />  <img src="./footage/gifs/5000.gif" width="200" height="300" />   <img src="./footage/gifs/39000.gif" width="200" height="300" />   <img src="./footage/gifs/48000.gif" width="200" height="300" />
 
+# Rewards/penalties
+|Action  | Reward |
+|--|--|
+|open already revealed square  | -2 |
+|stepping on a mine (game over!) | -1 |
+|open random square |-0.3  |
+|open a square that has revealed neighbours | -0.2 |
+|win a game | 1 |
+
 # Statistics
-<img src="./data/3x4_2_win_rate.png" width="640" height="480" />  
-#
-<img src="./data/3x4_2_reward.png" width="300" height="375" /><img src="./data/3x4_2_progress.png" width="300" height="375" /><img src="./data/3x4_2_epsilon.png" width="500" height="375" /><img src="./data/3x4_2_moves.png" width="500" height="375" />  
+<img src="./data/3x4_2_win_rate.png" width="500" height="375" /><img src="./data/3x4_2_reward.png" width="500" height="375" /> <img src="./data/3x4_2_progress.png" width="500" height="375" /><img src="./data/3x4_2_epsilon.png" width="500" height="375" /><img src="./data/3x4_2_moves.png" width="500" height="375" />  
