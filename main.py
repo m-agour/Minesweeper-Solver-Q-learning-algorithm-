@@ -4,6 +4,7 @@ import random
 from Sweeper import *
 from libs.graph import *
 
+
 def size_of(item):
     print(sys.getsizeof(item) / 1024 / 1024)
 
@@ -127,7 +128,8 @@ class Q:
                 med_moves = round(np.median(ep_moves), 2)
                 progress_list, ep_rewards, wins_list, ep_moves = [], [], [], []
 
-                print(f'Episode: {episode}, Median progress: {med_progress}, Median reward: {med_reward}, Win rate : {win_rate}, Epsilon: {epsilon}')
+                print(
+                    f'Episode: {episode}, Median progress: {med_progress}, Median reward: {med_reward}, Win rate : {win_rate}, Epsilon: {epsilon}')
 
                 stats['episode'].append(episode)
                 stats['win_rate'].append(win_rate)
@@ -147,7 +149,6 @@ class Q:
                 graph_stats(stats, self.name)
                 print('saved Q_table!')
 
-
     def play(self):
         while 1:
             self.env.reset()
@@ -160,9 +161,10 @@ class Q:
                 self.env.display(1.5)
 
 
-x = Q()
-x.train()
-# x.play()
+if __name__ == '__main__':
+    x = Q()
+    x.train()
+    # x.play()
 
 # def get_state_Q_index(self, state):
 #     return self.encoded_states[np.ravel_multi_index(state, np.ones(self.area, dtype='uint8') * 9)]
