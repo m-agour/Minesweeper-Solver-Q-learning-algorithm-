@@ -8,5 +8,5 @@
 
 # Statistics
 <img src="./data/3x4_2_win_rate.png" width="640" height="480" />  
-<img src="./data/3x4_2_reward.png" width="480" height="375" /><img src="./data/3x4_2_progress.png" width="480" height="375" />  
+<img src="./data/3x4_2_reward.png" width="400" height="375" /><img src="./data/3x4_2_progress.png" width="400" height="375" />  
 <img src="./data/3x4_2_epsilon.png" width="500" height="375" /><img src="./data/3x4_2_moves.png" width="500" height="375" />  
