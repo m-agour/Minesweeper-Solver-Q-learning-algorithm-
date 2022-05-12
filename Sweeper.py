@@ -20,9 +20,12 @@ rewards = {
     'useless': -2,
 }
 # for drAWING
-symbols = {-2: "B", -1: "."}
 UNKNOWN_VALUE = -1
 MINE_VALUE = -2
+
+# only needed in case of winning or losing for drawing purposes.
+FLAG_VALUE = -3
+RED_MINE_VALUE = -4
 
 states = {
     'mine': 1,
@@ -34,8 +37,10 @@ shapes = {
     1: pygame.image.load("assets/1.png"),
     2: pygame.image.load("assets/2.png"),
     3: pygame.image.load("assets/3.png"),
-    -1: pygame.image.load("assets/facingDown.png"),
-    -2: pygame.image.load("assets/lose.png"),
+    UNKNOWN_VALUE: pygame.image.load("assets/facingDown.png"),
+    MINE_VALUE: pygame.image.load("assets/mine.png"),
+    RED_MINE_VALUE: pygame.image.load("assets/lose.png"),
+    FLAG_VALUE: pygame.image.load("assets/flagged.png"),
     'click': pygame.image.load("assets/click.png")
 }
 
@@ -64,7 +69,7 @@ class Sweeper:
 
     def init_mines_grid(self):
         grid = np.concatenate((np.zeros(self.w * self.h - self.mines_num, dtype=np.int8),
-                               np.ones(self.mines_num, dtype=np.int8)), axis=0)
+                               np.ones(self.mines_num, dtype=np.int8)), axis=0) * MINE_VALUE
         np.random.shuffle(grid)
         return grid
 
@@ -73,7 +78,7 @@ class Sweeper:
         for i in range(x - 1, x + 2):
             for j in range(y - 1, y + 2):
                 if (0 <= i < self.w) and (0 <= j < self.h):
-                    if self.mines_grid[j * self.w + i] == states['mine']:
+                    if self.mines_grid[j * self.w + i] == MINE_VALUE:
                         c += 1
         return c
 
@@ -109,9 +114,11 @@ class Sweeper:
         last_state = np.copy(self.player_grid)
 
         neighbours = self.get_neighbours(x, y)
-        if self.mines_grid[y * self.w + x] == states['mine']:
-            self.player_grid[y * self.w + x] = MINE_VALUE
+        if self.mines_grid[y * self.w + x] == MINE_VALUE:
             reward = rewards['lose']
+            # replace mine shape
+            self.player_grid[np.where(self.mines_grid == MINE_VALUE)] = MINE_VALUE
+            self.player_grid[y * self.w + x] = RED_MINE_VALUE
             s = 'lose\n'
             done = True
 
@@ -121,10 +128,12 @@ class Sweeper:
             if count == 0:
                 self.reveal_neighbours(x, y)
 
-            if np.count_nonzero(self.player_grid == UNKNOWN_VALUE) == self.mines_num:
+            if self.is_won():
                 reward = rewards['win']
                 s = 'win\n'
                 done = True
+                # replace unopened with a flag (mines)
+                self.player_grid[self.player_grid == UNKNOWN_VALUE] = FLAG_VALUE
                 self.progress += 1
                 self.wins += 1
 
@@ -164,6 +173,9 @@ class Sweeper:
         if save_name:
             pygame.image.save(self.screen, 'footage/' + save_name + '1.jpg')
         sleep(0.6 * t)
+
+    def is_won(self):
+        return np.count_nonzero(self.player_grid == UNKNOWN_VALUE) == self.mines_num
 
     def reset(self):
         self.progress = 0
