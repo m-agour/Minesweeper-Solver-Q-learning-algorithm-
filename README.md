@@ -6,7 +6,7 @@
 # Evaluating the Agent
 From the below evaluations it might seem that the agent solves it every time after he was trained but I tried not to include the cases in which he steps on a mine at the first step since the first step it totally stochastic (the Agent found that the second step is not totally stochastic and he can win if the first revealed square has 2 mines as neighbours which I've missed when calculating the max win rate he would reach! which was 68.1% but the agent reached a win rate of 71%)
 
-<img src="./footage/gifs/4000.gif" width="200" height="300" />  <img src="./footage/gifs/5000.gif" width="200" height="300" />   <img src="./footage/gifs/39000.gif" width="200" height="300" />   <img src="./footage/gifs/48000.gif" width="200" height="300" />
+<img src="./footage/gifs/4000.gif" width="200" height="300" />  <img src="./footage/gifs/5000.gif" width="200" height="300" />   <img src="./footage/gifs/39000.gif" width="200" height="300" />   <img src="./footage/gifs/45000.gif" width="200" height="300" />   <img src="./footage/gifs/48000.gif" width="200" height="300" />
 
 # Rewards/penalties
 |Action  | Reward |
