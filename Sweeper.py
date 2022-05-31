@@ -152,15 +152,15 @@ class Sweeper:
             reward = rewards['useless']
         return self.get_encoded_state(), reward, done
 
-    def display(self, t, save_name=None, episode=None):
+    def display(self, t, name=None, episode=None, save=False):
         if self.last_clicked:
             x, y = self.last_clicked
             self.screen.blit(pygame.transform.scale(shapes['click'], (70, 70)),
                              (BOARDER/2 + x * 100 + 15, BOARDER/2 + y * 100 + 15 + BOARDER_TITLE))
             pygame.display.flip()
-            if save_name:
-                pygame.image.save(self.screen, 'footage/' + save_name + '0.jpg')
-            sleep(0.3 * t)
+            if name:
+                pygame.image.save(self.screen, 'footage/' + name + '0.jpg')
+            pygame.time.wait(int(0.3 * t * 1000))
 
         self.screen.fill((150, 150, 150))
         self.screen.blit(font.render(f'Episode: {episode}', True, (19, 11, 16)), (BOARDER, BOARDER/3))
@@ -170,9 +170,9 @@ class Sweeper:
                 self.screen.blit(pygame.transform.scale(shapes[value], (100, 100)),
                                  (BOARDER/2 + i * 100, BOARDER/2 + j * 100 + BOARDER_TITLE))
         pygame.display.flip()
-        if save_name:
-            pygame.image.save(self.screen, 'footage/' + save_name + '1.jpg')
-        sleep(0.6 * t)
+        if name:
+            pygame.image.save(self.screen, 'footage/' + name + '1.jpg')
+        pygame.time.wait(int(0.6 * t * 1000))
 
     def is_won(self):
         return np.count_nonzero(self.player_grid == UNKNOWN_VALUE) == self.mines_num
@@ -184,6 +184,7 @@ class Sweeper:
         self.mines_grid = self.init_mines_grid()
         self.last_clicked = None
 
+    # not using DQN but we might at the future
     def get_DQN_state(self):
         DQN_state = self.player_grid.astype(np.int8) / 8
         DQN_state = DQN_state.astype(np.float16)
@@ -201,5 +202,4 @@ class Sweeper:
         try:
             return np.ravel_multi_index(modified_state, np.ones(self.area, dtype='uint8') * self.mines_num + 2)
         except:
-            # print(self.player_grid, modified_state)
             return None

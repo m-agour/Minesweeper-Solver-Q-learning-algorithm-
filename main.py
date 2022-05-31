@@ -20,6 +20,7 @@ EPISODES = 50_000
 epsilon = 0.9999997
 START_EPSILON_DECAYING = 1
 END_EPSILON_DECAYING = EPISODES // 2
+# END_EPSILON_DECAYING = 0
 EPSILON_DECAY_VALUE = epsilon / (END_EPSILON_DECAYING - START_EPSILON_DECAYING)
 AGG_STATS_EVERY = 500
 SHOW_EVERY = 1000
@@ -86,7 +87,7 @@ class Q:
             done = False
             evaluate = False
             if episode % SHOW_EVERY == 0:
-                self.env.display(FRAME_TIME, f'ep{episode}_0', episode)
+                self.env.display(FRAME_TIME, f'ep{episode}_0', episode, SAVE_FOOTAGE)
                 evaluate = True
                 i = 0
 
@@ -103,7 +104,7 @@ class Q:
 
                 if episode % SHOW_EVERY == 0:
                     i += 1
-                    self.env.display(FRAME_TIME, f"ep{episode}_{str(i).zfill(9)}", episode)
+                    self.env.display(FRAME_TIME, f"ep{episode}_{str(i).zfill(9)}", episode, SAVE_FOOTAGE)
 
                 if not done:
                     max_future_q = np.max(self.Q_table[new_state])
@@ -111,7 +112,10 @@ class Q:
                     new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + DISCOUNT * max_future_q)
                     self.Q_table[state][action] = new_q
                 else:
-                    self.Q_table[state][action] = reward
+                    # self.Q_table[state][action] = reward
+                    current_q = self.Q_table[state][action]
+                    new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * reward
+                    self.Q_table[state][action] = new_q
 
             progress_list.append(self.env.progress)
             ep_rewards.append(episode_reward)
@@ -163,8 +167,8 @@ class Q:
 
 if __name__ == '__main__':
     x = Q()
-    x.train()
-    # x.play()
+    # x.train()
+    x.play()
 
 # def get_state_Q_index(self, state):
 #     return self.encoded_states[np.ravel_multi_index(state, np.ones(self.area, dtype='uint8') * 9)]
