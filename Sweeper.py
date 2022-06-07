@@ -6,11 +6,11 @@ pygame.init()
 pygame.font.init()
 font = pygame.font.SysFont('Arial', 40)
 
-# screen t draw my minesweeper (3X3) for now since we are using Q-learning
+# screen t draw my minesweeper (3X4) for now since we are using Q-learning
 SQUARE_WIDTH = 100
 SQUARE_HEIGHT = 100
 BOARDER = 50
-BOARDER_TITLE = 50
+BOARDER_TITLE = 50m
 
 rewards = {
     'lose': -1,

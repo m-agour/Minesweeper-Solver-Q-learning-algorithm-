@@ -13,21 +13,24 @@ W = 3
 H = 4
 M = 2
 
+
+# Q-Settings
 LEARNING_RATE = 0.1
 DISCOUNT = 0.5
-EPISODES = 50_000
-
+EPISODES = 1_000_000
 epsilon = 0.9999997
 START_EPSILON_DECAYING = 1
-END_EPSILON_DECAYING = EPISODES // 2
+END_EPSILON_DECAYING = 3 * EPISODES // 4
 # END_EPSILON_DECAYING = 0
 EPSILON_DECAY_VALUE = epsilon / (END_EPSILON_DECAYING - START_EPSILON_DECAYING)
-AGG_STATS_EVERY = 500
-SHOW_EVERY = 1000
+################
+
+AGG_STATS_EVERY = 10_000
+SHOW_EVERY = 100_000
 # FRAME_TIME = 1.5
 FRAME_TIME = 0
-SAVE_MODEL_EVERY = 500
-
+SAVE_MODEL_EVERY = 100_000
+SAVE_FOOTAGE = False
 
 class Q:
     def __init__(self):
@@ -125,7 +128,7 @@ class Q:
             else:
                 wins_list.append(0)
 
-            if not episode % AGG_STATS_EVERY:
+            if not episode % AGG_STATS_EVERY and len(ep_rewards) > 1:
                 med_progress = round(np.median(progress_list), 7)
                 win_rate = round(np.sum(wins_list) / AGG_STATS_EVERY, 2)
                 med_reward = round(np.median(ep_rewards), 2)
