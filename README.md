@@ -19,5 +19,7 @@ update: After training him for more episodes, the win rate reached 79%-80% which
 |open a square that has revealed neighbours | -0.2 |
 |win a game | 1 |
 
+### Note: open a square that has revealed neighbours has a negaive reward for two reasons. To make it solve the game is less games as possible plus it's not always the right choice so it's better than random but not that good. 
+
 # Statistics
 <img src="./data/3x4_2_win_rate.png" width="500" height="375" /><img src="./data/3x4_2_reward.png" width="500" height="375" /> <img src="./data/3x4_2_progress.png" width="500" height="375" /><img src="./data/3x4_2_epsilon.png" width="500" height="375" /><img src="./data/3x4_2_moves.png" width="500" height="375" />  
